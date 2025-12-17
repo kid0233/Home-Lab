@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
+from jinja2 import TemplateNotFound
 from . import db
 from .model import User
 from .forms import LoginForm, SignupForm
@@ -6,7 +7,7 @@ from flask_login import login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-auth = Blueprint("auth", __name__)
+auth = Blueprint("auth", __name__, template_folder="templates")
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
@@ -16,7 +17,7 @@ def login():
         if user:
             if check_password_hash(user.password, form.password.data):
                 flash("Login Successful", category="success")
-                login_user(user, remember=True)
+                login_user(user, remember=form.remember.data)
                 return redirect(url_for("main.index"))
             else:
                 flash("Password is incorrect", category="error")
@@ -24,10 +25,7 @@ def login():
             flash("Username is incorrect!", category="error")
     
     return render_template("login.html", form=form)
-        
-        
-        
-    
+
 
 @auth.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -46,4 +44,5 @@ def signup():
 @login_required
 def logout():
     logout_user()
+    flash("You are logged out!", category="warning")
     return redirect(url_for("auth.login"))

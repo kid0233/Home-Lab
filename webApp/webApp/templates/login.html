@@ -30,10 +30,11 @@
               </div>
               <div class="checkbox mb-3">
                 <label>
-                  <input type="checkbox" value="remember-me"> Remember me
+                  {{ form.remember() }}
+                  {{ form.remember.label() }}
                 </label>
               </div>
-              {{ form.submit(class="w-100 btn btn-lg btn-primary") }}
+              {{ form.submit(class="w-100 btn btn-lg btn-info") }}
               <hr class="my-4">
               <small class="text-body-secondary">CenetLab Copyright &copy; 2025</small>
             </form>

@@ -1,12 +1,18 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
         <img src="{{url_for('static', filename='images/pic2.png')}}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-        CenetLab&copy;
+         CenetLab&copy;
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           {% if current_user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{url_for('main.index')}}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{url_for('main.dashboard')}}">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{url_for('main.add_post')}}">Create Post</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('auth.logout')}}">Logout</a>
@@ -20,6 +26,13 @@
           </li>
           {% endif %}
         </ul>
+    </div>
+    <div>
+      {% if current_user.is_authenticated %}
+        <form role="search">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+        </form>
+      {% endif %}
     </div>
   </div>
 </nav>
