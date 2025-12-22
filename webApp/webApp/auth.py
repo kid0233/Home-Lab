@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
-from jinja2 import TemplateNotFound
 from . import db
 from .model import User
 from .forms import LoginForm, SignupForm
@@ -35,7 +34,7 @@ def signup():
             new_user = User(username=form.username.data, email=form.email.data, password=hash_password)
             db.session.add(new_user)
             db.session.commit()
-            login_user(new_user, remember=True)
+            login_user(new_user)
             flash("Account Created!", category="success")
             return redirect(url_for("main.index"))
     return render_template("signup.html", form=form)
