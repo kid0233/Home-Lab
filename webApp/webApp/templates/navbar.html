@@ -1,7 +1,6 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-body-tertiary">
   <div class="container-fluid">
-        <img src="{{url_for('static', filename='images/pic2.png')}}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-         CenetLab&copy;
+        <img src="{{url_for('static', filename='images/logo.png')}}" alt="Logo" width="70" height="40" class="d-inline-block align-text-top">
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           {% if current_user.is_authenticated %}
@@ -29,11 +28,11 @@
     </div>
     <div>
       {% if current_user.is_authenticated %}
-        <form role="search">
-          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-info" type="submit">Search</button>
         </form>
       {% endif %}
     </div>
   </div>
 </nav>
-

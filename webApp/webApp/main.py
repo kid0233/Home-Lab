@@ -1,11 +1,11 @@
-from flask import Blueprint, render_template, abort, url_for, redirect, flash
+from flask import Blueprint, render_template, abort, url_for, redirect, flash, current_app
 from jinja2 import TemplateNotFound
 from flask_login import login_required, current_user
 from .forms import PostForm
 from .model import Post
 from . import db
 
-main = Blueprint("main", __name__,)
+main = Blueprint("main", __name__)
 
 
 @main.route("/")
@@ -14,12 +14,16 @@ def index():
     try:
         posts = Post.query.order_by(Post.date_posted)
         return render_template("main.html", posts=posts)
-    except TemplateNotFound:
+    except TemplateNotFound as e:
+        current_app.logger.info("Error finding post", exc_info=e)
         abort(404)
 
-@main.route("/dashboard")
+@main.route("/dashboard", methods=["GET", "POST"])
+@login_required
 def dashboard():
-    return render_template("dashboard.html")
+    id = current_user.id
+    post = Post.query.get_or_404(id)
+    return render_template("dashboard.html", post=post)
 
 @main.route("/add-post", methods=["GET", "POST"])
 @login_required
@@ -36,6 +40,7 @@ def add_post():
         #Add Post Data to Database
         db.session.add(post)
         db.session.commit()
+        current_app.logger.info(f"Author: {post.author} Post Added!")
         flash("Post Added!", category="info")
     
     return render_template("add-post.html", form=form)
@@ -60,6 +65,7 @@ def edit_post(id):
         db.session.add(post)
         db.session.commit()
         flash("Post Edited Successfully", category="warning")
+        current_app.logger.info(f"{post.author} Post Edited Successfully")
         return redirect(url_for('main.post', id=post.id))
     form.title.data = post.title
     form.author.data = post.author
@@ -75,6 +81,7 @@ def delete_post(id: int):
         db.session.delete(post_to_delete)
         db.session.commit()
         flash("Post Deleted Successfully", category="warning")
+        current_app.logger.info("Post Deleted Successfully")
         posts = Post.query.order_by(Post.date_posted)
         return render_template("main.html", posts=posts)
     except:

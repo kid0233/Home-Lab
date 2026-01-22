@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from .weblog import log_config
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -10,6 +11,7 @@ def webapp():
     app = Flask(__name__)
     app.config["SECRET_KEY"] = "cenetlab"
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
+    log_config(app)
     db.init_app(app)
     
     from .auth import auth

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, current_app
 from . import db
 from .model import User
 from .forms import LoginForm, SignupForm
@@ -17,6 +17,7 @@ def login():
             if check_password_hash(user.password, form.password.data):
                 flash("Login Successful", category="success")
                 login_user(user, remember=form.remember.data)
+                current_app.logger.info(f"{user} has logged in")
                 return redirect(url_for("main.index"))
             else:
                 flash("Password is incorrect", category="error")
@@ -35,6 +36,7 @@ def signup():
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user)
+            current_app.logger.info(f"{new_user.username} account ctreated")
             flash("Account Created!", category="success")
             return redirect(url_for("main.index"))
     return render_template("signup.html", form=form)
@@ -43,5 +45,6 @@ def signup():
 @login_required
 def logout():
     logout_user()
+    current_app.logger.info("User has logged out")
     flash("You are logged out!", category="warning")
     return redirect(url_for("auth.login"))
