@@ -14,13 +14,6 @@
         {% endfor %}
     </div>
     <div class="mb-3">
-        {{ form.author.label(for="exampleFormControlInput1", class="form-label") }}
-        {{ form.author(class="form-control") }}
-        {% for error in form.author.errors %}
-            <span class="form-text" style="color:red;">{{ error }}</span>
-        {% endfor %}
-    </div>
-    <div class="mb-3">
         {{ form.slug.label(for="exampleFormControlInput1", class="form-label") }}
         {{ form.slug(class="form-control") }}
         {% for error in form.slug.errors %}

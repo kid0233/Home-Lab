@@ -11,11 +11,10 @@
             <h5 class="card-title">Summary of your account information</h5>
             <strong class="card-text">User ID:</strong> {{ current_user.id }}<br>
             <strong class="card-text">Username:</strong> {{ current_user.username }}<br>
-            <strong class="card-text">Arthor:</strong> {{ post.arthor }}<br>
+            <strong class="card-text">Arthor:</strong> {{ post.arthor.id }}<br>
             <strong class="card-text">Email:</strong> {{ current_user.email }}<br>
             <strong class="card-text">Date:</strong> {{ current_user.date_created }}<br><br>
             <a href="{{url_for('auth.logout')}}" class="btn btn-outline-warning btn-sm">Logout</a>
-            <a href=# class="btn btn-outline-danger btn-sm">Delete</a>
         </div>
     </div>
    
