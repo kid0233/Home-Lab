@@ -24,4 +24,4 @@ class Post(db.Model):
     slug = db.Column(db.String(255))
 
     def __repr__(self):
-        return f"<Author: {self.title}>"
+        return f"<Title: {self.title}>"

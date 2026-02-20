@@ -28,15 +28,15 @@ def rotator(source, dest):
     os.remove(source)
     
 def log_config(app):
-    app.logger.setLevel(logging.INFO)
+    app.logger.setLevel(logging.DEBUG)
 
     file_handler = TimedRotatingFileHandler("applogs/logs.log", when="midnight", interval=1, backupCount=7)
     file_handler.namer = lambda name: name.replace(".log", "") + ".zip"
-    file_handler.setLevel(logging.INFO)
+    file_handler.setLevel(logging.DEBUG)
     file_handler.rotator = rotator
 
     stream_handler = logging.StreamHandler(sys.stdout)
-    stream_handler.setLevel(logging.INFO)
+    stream_handler.setLevel(logging.DEBUG)
 
     formatter = CustomFormatter("[%(asctime)s] %(remote_addr)s requested %(url)s %(levelname)s in %(module)s: %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
 

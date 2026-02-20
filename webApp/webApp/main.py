@@ -18,12 +18,10 @@ def index():
         current_app.logger.info("Error finding post", exc_info=e)
         abort(404)
 
-@main.route("/dashboard", methods=["GET", "POST"])
+@main.route("/dashboard")
 @login_required
 def dashboard():
-    id = current_user.id
-    post = Post.query.get_or_404(id)
-    return render_template("dashboard.html", post=post)
+    return render_template("dashboard.html")
 
 @main.route("/add-post", methods=["GET", "POST"])
 @login_required
