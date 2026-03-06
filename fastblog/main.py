@@ -12,21 +12,21 @@ posts: list[dict] = [
     {
         "id": 1, 
         "author": "Cecil Mensah",
-        "title": "Demographics",
-        "content": "Introduction into FastAPI Blog",
+        "title": "Ubuntu",
+        "content": "Ubuntu is now one of the most widely used Linux distributions. It is based on Debian, but it has a more consistent release schedule.",
         "date_posted": "March 01, 2026"
     },
     {
         "id": 2,
         "author": "Mimi Mensah",
-        "title": "Infographics",
-        "content": "Running into FastAPI Blog",
+        "title": "Debian",
+        "content": "Debian is known for giving rise to well-known Linux distributions like Mint, Deepin, and Ubuntu, which have delivered outstanding results, reliability, and user interface.",
         "date_posted": "March 04, 2026"
     }
 ]
 
-@app.get("/", include_in_schema=False)
-@app.get("/posts", include_in_schema=False)
+@app.get("/", include_in_schema=False, name="home")
+@app.get("/posts", include_in_schema=False, name="posts")
 def home(request: Request):
     return templates.TemplateResponse(request, "home.html", {"posts": posts, "title": "Home"})
 
