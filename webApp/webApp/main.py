@@ -38,7 +38,7 @@ def add_post():
         #Add Post Data to Database
         db.session.add(post)
         db.session.commit()
-        current_app.logger.info(f"Author: {post.title} Post Added!")
+        current_app.logger.info(f"Title: {post.title} Post Added!")
         flash("Post Added!", category="info")
     
     return render_template("add-post.html", form=form)
@@ -82,12 +82,14 @@ def delete_post(id: int):
             current_app.logger.info("Post Deleted Successfully")
             posts = Post.query.order_by(Post.date_posted)
             return render_template("main.html", posts=posts)
-        except:
+        except current_user.id != post_to_delete.author.id:
             flash("Post not Deleted", category="danger")
-            posts = Post.query.order_by(Post.date_posted)
-            return render_template("main.html", posts=posts)
+            current_app.logger.info("Unauthorized Post Deletion!")
+
     else:
         flash("You can't delete this post!", category="danger")
+        posts = Post.query.order_by(Post.date_posted)
+        return render_template("main.html", posts=posts)
 
 
 @main.app_errorhandler(404)

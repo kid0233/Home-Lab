@@ -9,7 +9,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
-    posts = db.relationship("Post", backref="author", passive_deletes=True)
+    posts = db.relationship("Post", backref="poster", passive_deletes=True)
 
     def __repr__(self):
         return f"<User: {self.username}>"
@@ -19,7 +19,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
     content = db.Column(db.Text)
-    author_id = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
+    poster_id = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
     date_posted = db.Column(db.DateTime(timezone=True), default=func.now())
     slug = db.Column(db.String(255))
 
