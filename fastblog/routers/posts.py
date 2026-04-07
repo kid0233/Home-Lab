@@ -73,7 +73,7 @@ async def update_post_full(post_id: int, post_data: PostCreate, db: Annotated[As
 
 @router.patch("/{post_id}", response_model=PostResponse)
 async def update_post_partial(post_id: int, post_data: PostUpdate, db: Annotated[AsyncSession, Depends(get_db)]):
-    result = db.execute(select(models.Post).options(selectinload(models.Post.author)).where(models.Post.id == post_id))
+    result = await db.execute(select(models.Post).options(selectinload(models.Post.author)).where(models.Post.id == post_id))
     post = result.scalars().first()
 
     if not post:

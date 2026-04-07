@@ -1,5 +1,7 @@
 fastapi[standard]
 uvicorn
-pydantic
+pydantic-settings
 aiosqlite
 psycopg2
+pyjwt
+pwdlib[argon2]
