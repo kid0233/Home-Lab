@@ -1,61 +1,63 @@
-<nav class="navbar navbar-expand-md fixed-top bg-body-primary" data-bs-theme="dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="{{url_for('home')}}">
-        <img src="{{url_for('static', path='images/logo.png')}}" alt="FastAPI Blog" width="70" height="35">
-      </a>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <!-- NOTE: Once auth is set up, this button will only be visible when logged in -->
-              <button class="btn btn-outline-primary mb-2 mb-md-0 me-md-2"
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#createPostModal">New Post</button>
-            <!-- NOTE: Once auth is set up, this button will only be visible when logged in -->
-          </li>
-        </ul>
-        <div class="navbar-nav">
-            <!-- Shown when logged in (hidden by default, shown via JS) -->
-              <div id="loggedInNav" class="d-none">
-                <button class="btn btn-outline-light mb-2 mb-md-0 me-md-2"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#createPostModal">New Post</button>
-                <span id="usernameDisplay" class="navbar-text me-md-2"></span>
-                <button class="btn btn-outline-light mb-2 mb-md-0 me-md-3"
-                        type="button"
-                        id="logoutBtn">Logout</button>
+<nav class="navbar navbar-expand-md bg-steel fixed-top"
+                 data-bs-theme="dark">
+                <div class="container">
+                    <a class="navbar-brand me-4" href="{{ url_for('home') }}">CenetLab</a>
+                    <button class="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navbarToggle"
+                            aria-controls="navbarToggle"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarToggle">
+                        <div class="navbar-nav me-auto">
+                            <a class="nav-link active"
+                               aria-current="page"
+                               href="{{ url_for('home') }}">Home</a>
+                        </div>
+                        <!-- Navbar Right Side -->
+                        <div class="navbar-nav">
+                            <!-- Shown when logged in (hidden by default, shown via JS) -->
+                            <div id="loggedInNav" class="d-none">
+                                <button class="btn btn-outline-light mb-2 mb-md-0 me-md-2"
+                                        type="button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#createPostModal">New Post</button>
+                                <a class="btn btn-light mb-2 mb-md-0 me-md-3"
+                                   href="{{ url_for('account_page') }}"
+                                   id="accountBtn">Account</a>
+                            </div>
+                            <!-- Shown when logged out -->
+                            <div id="loggedOutNav">
+                                <a class="btn btn-outline-light mb-2 mb-md-0 me-md-2"
+                                   href="{{ url_for('login_page') }}">Login</a>
+                                <a class="btn btn-light mb-2 mb-md-0 me-md-3"
+                                   href="{{ url_for('register_page') }}">Register</a>
+                            </div>
+                            <div class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle"
+                                   href="#"
+                                   role="button"
+                                   id="bd-theme"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <span id="bd-theme-text">🌗 Auto</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme">
+                                    <li>
+                                        <button class="dropdown-item" type="button" data-bs-theme-value="light">🌝 Light</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button" data-bs-theme-value="dark">🌚 Dark</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button" data-bs-theme-value="auto">🌗 Auto</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- Shown when logged out -->
-                <div id="loggedOutNav">
-                <a class="btn btn-outline-primary mb-2 mb-md-0 me-md-2"
-                    href="{{ url_for('login_page') }}">Login</a>
-                <a class="btn btn-secondary mb-2 mb-md-0 me-md-3"
-                    href="{{ url_for('register_page') }}">Register</a>
-              </div>
-        </div>
-        <!-- Bootstrap 5 switch -->
-          <div class="nav-item dropdown ps-2">
-              <a class="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  id="bd-theme"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <span id="bd-theme-text">🌗 Auto</span>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme">
-                  <li>
-                    <button class="dropdown-item" type="button" data-bs-theme-value="light">🌝 Light</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item" type="button" data-bs-theme-value="dark">🌚 Dark</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item" type="button" data-bs-theme-value="auto">🌗 Auto</button>
-                  </li>
-              </ul>
-          </div>
-      </div>
-    </div>
-  </nav>
+            </nav>
