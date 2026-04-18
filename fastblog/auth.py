@@ -12,16 +12,23 @@ import models
 from database import get_db
 from config import settings
 
+
 password_hash = PasswordHash.recommended()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/users/token")
 
+
+# Password Hash
 def hash_password(password: str) -> str:
     return password_hash.hash(password)
 
+
+# Verify Password Hash
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return password_hash.verify(plain_password, hashed_password)
 
+
+# Create Access Token
 def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:
     to_encode = data.copy()
     if expires_delta:
@@ -33,6 +40,8 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
     encoded_jwt = jwt.encode(to_encode, settings.secret_key.get_secret_value(), algorithm=settings.algorithm)
     return encoded_jwt
 
+
+# Verify Access Token
 def verify_access_token(token: str) -> str | None:
     try:
         payload = jwt.decode(
@@ -47,6 +56,7 @@ def verify_access_token(token: str) -> str | None:
         return payload.get("sub")
 
 
+# Getting Current User from Token
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Annotated[AsyncSession, Depends(get_db)]) -> models.User:
     user_id = verify_access_token(token)
     if user_id is None:
