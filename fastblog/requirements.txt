@@ -1,8 +1,10 @@
 fastapi[standard]
-uvicorn
 pydantic-settings
 aiosqlite
-psycopg2
+psycopg[binary]
 pyjwt
 pwdlib[argon2]
 pillow
+aiosmtplib
+alembic
+boto3

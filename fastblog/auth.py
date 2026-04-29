@@ -1,3 +1,5 @@
+import hashlib
+import secrets
 from typing import Annotated
 from datetime import UTC, datetime, timedelta
 
@@ -26,6 +28,14 @@ def hash_password(password: str) -> str:
 # Verify Password Hash
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return password_hash.verify(plain_password, hashed_password)
+
+# Generate a Reset Token
+def generate_reset_token() -> str:
+    return secrets.token_urlsafe(32)
+
+# Hash the reset token
+def hash_reset_token(token: str) -> str:
+    return hashlib.sha256(token.encode()).hexdigest()
 
 
 # Create Access Token
