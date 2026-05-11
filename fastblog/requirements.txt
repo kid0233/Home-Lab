@@ -1,7 +1,7 @@
 fastapi[standard]
 pydantic-settings
 aiosqlite
-psycopg[binary]
+asyncpg
 pyjwt
 pwdlib[argon2]
 pillow
